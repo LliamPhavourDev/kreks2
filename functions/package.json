@@ -1,0 +1,12 @@
+{
+  "name": "netlify-faunadb-auth",
+  "version": "1.0.0",
+  "description": "Netlify serverless function for user authentication with FaunaDB",
+  "main": "functions/auth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "faunadb": "^4.5.0"
+  }
+}
