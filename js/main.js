@@ -21,8 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-async function loginUser(event) {
-  event.preventDefault();
+async function loginUser() {
   const email = document.getElementById("login-email").value;
   const password = document.getElementById("login-password").value;
 
