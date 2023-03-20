@@ -21,23 +21,38 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-async function loginUser(username, password) {
+async function loginUser(event) {
+  event.preventDefault();
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
+
   try {
     const response = await fetch("/.netlify/functions/auth", {
       method: "POST",
-      body: JSON.stringify({ action: "login", username, password }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        action: "login",
+        email: email,
+        password: password,
+      }),
     });
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
     const data = await response.json();
 
-    if (response.ok) {
-      alert("Logged in successfully!");
-      window.location.href = "dashboard.html"; // Redirect to the dashboard page
+    if (data.status === "success") {
+      window.location.href = "dashboard.html";
     } else {
-      alert(`Error: ${data.message}`);
+      showError("login-error", "Invalid email or password.");
     }
   } catch (error) {
     console.error("Error in loginUser:", error);
-    alert(`Error: ${error.message}`);
+    showError("login-error", "An error occurred. Please try again.");
   }
 }
 
